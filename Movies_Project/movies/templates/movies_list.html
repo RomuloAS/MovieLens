@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Movies List</h1>
+    <br/>
+    {% if genres %}
+        <form action="/movies/genre/" method="post">
+            <select id="genre_choose" name="genre_choose" onchange="submit()">
+                <option  value="" selected="selected">---SELECT GENRE---</option>
+                {% for genre in genres %}
+                    <option value="{{ genre }}">{{ genre|capfirst }}</option>
+                {% endfor %}
+            </select>
+            {% csrf_token %}
+        </form>
+        <br/>
+    {% endif %}
+    {% if movies %}
+        <ul>
+            {% for movie in movies %}
+                <li>
+                    {% if movie.year %}
+                        <a href="{% url 'movie-detail' movie.movieId %}">{{ movie.title }} ({{movie.year}})</a>
+                    {% else %}
+                        <a href="{% url 'movie-detail' movie.movieId %}">{{ movie.title }}</a>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>There are no movies.</p>
+    {% endif %}
+    {% block pagination %}
+        {% if is_paginated %}
+            <div class="pagination">
+                <span class="page-links">
+                    {% if page_obj.has_previous %}
+                        <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
+                    {% endif %}
+                    <span class="page-current">
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                    </span>
+                    {% if page_obj.has_next %}
+                        <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
+                    {% endif %}
+                </span>
+            </div>
+        {% endif %}
+    {% endblock %}
+{% endblock %}

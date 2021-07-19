@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% if movie.year %}
+        <h1>{{ movie.title }} ({{ movie.year }})</h1>
+    {% else %}
+        <h1>{{ movie.title }}</h1>
+    {% endif %}
+
+    <div style="margin-left:20px;margin-top:20px">
+        <h4>Genres</h4>
+
+        {% for genre in movie.genres %}
+            <li style="margin-left:20px">{{ genre|safe }}</li>
+        {% endfor %}
+
+        <br/>
+        {% if movie.rating_average %}
+            <strong>Rating average:</strong> {{ movie.rating_average|floatformat:2 }}
+            <br/>
+        {% endif %}
+        {% if movie.most_relevant_tag %}
+            <strong>Most relevant tag:</strong> {{ movie.most_relevant_tag }}
+            <br/>
+        {% endif %}
+        {% if movie.imdbId %}
+            <strong>imdbId:</strong> {{ movie.imdbId }}
+            <br/>
+        {% endif %}
+        {% if movie.tmdbId %}
+            <strong>tmdbId:</strong> {{ movie.tmdbId }}
+        {% endif %}
+    </div>
+{% endblock %}
