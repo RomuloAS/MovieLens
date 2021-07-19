@@ -1,4 +1,4 @@
-#Movie lens with mongodb and Django
+# Movie lens with mongodb and Django
 ---
 ***MongoDB document database was chosen to maximize the availability at the expense of consistency, as the data do not need to have a strong consistency and can have a more flexible schema.***
 
