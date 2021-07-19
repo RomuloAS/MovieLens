@@ -1,0 +1,12 @@
+name: Movie_Lens
+channels:
+  - conda-forge
+dependencies:
+  - python=3
+  - django
+  - mongodb
+  - mongoengine
+  - numpy
+  - pandas
+  - pymongo
+  - tqdm
